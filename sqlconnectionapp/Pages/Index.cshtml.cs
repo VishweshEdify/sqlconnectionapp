@@ -8,6 +8,7 @@ namespace sqlconnectionapp.Pages
     public class IndexModel : PageModel
     {
         public List<Product> productList;
+        public bool isAlpha;
 
         private readonly IdbConnectionService connDB;
 
@@ -16,8 +17,8 @@ namespace sqlconnectionapp.Pages
             connDB = _connDB;
         }
         public void OnGet()
-        {        
-            
+        {
+            isAlpha = connDB.IsAlpha().Result;
             productList = connDB.getProduct();
 
         }

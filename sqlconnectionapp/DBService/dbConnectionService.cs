@@ -1,4 +1,5 @@
-﻿using sqlconnectionapp.Models;
+﻿using Microsoft.FeatureManagement;
+using sqlconnectionapp.Models;
 using System.Data.SqlClient;
 
 namespace sqlconnectionapp.DBService
@@ -7,14 +8,25 @@ namespace sqlconnectionapp.DBService
     {
 
         private readonly IConfiguration config;
-        public dbConnectionService(IConfiguration _config)
+        private readonly IFeatureManager _featureManager;
+        public dbConnectionService(IConfiguration _config , IFeatureManager featureManager)
         {
             config = _config;
+            _featureManager = featureManager;
         }
         private SqlConnection getConnection()
         {     
 
             return new SqlConnection(config["SQLConnection"]);
+
+        }
+
+        public async Task<bool> IsAlpha()
+        {
+            if (await _featureManager.IsEnabledAsync("alpha"))
+                return true;
+            else 
+                return false;
 
         }
 
