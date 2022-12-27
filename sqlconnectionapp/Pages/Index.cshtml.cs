@@ -8,10 +8,17 @@ namespace sqlconnectionapp.Pages
     public class IndexModel : PageModel
     {
         public List<Product> productList;
+
+        private readonly IdbConnectionService connDB;
+
+    public IndexModel(IdbConnectionService _connDB)
+        {
+            connDB = _connDB;
+        }
         public void OnGet()
-        {           
-            dbConnectionService dbConn = new dbConnectionService();
-            productList = dbConn.getProduct();
+        {        
+            
+            productList = connDB.getProduct();
 
         }
     }

@@ -3,24 +3,18 @@ using System.Data.SqlClient;
 
 namespace sqlconnectionapp.DBService
 {
-    public class dbConnectionService
+    public class dbConnectionService : IdbConnectionService
     {
-        private static string source = "az204firstdbserver.database.windows.net";
-        private static string userName = "vishgmail";
-        private static string password = "Es@1506@pN";
-        private static string database = "az204firstdb";
 
-        private SqlConnection getConnection()
+        private readonly IConfiguration config;
+        public dbConnectionService(IConfiguration _config)
         {
-            var dbString = new SqlConnectionStringBuilder();
-            dbString.DataSource = source;
-            dbString.UserID = userName;
-            dbString.Password = password;
-            dbString.InitialCatalog = database;
+            config = _config;
+        }
+        private SqlConnection getConnection()
+        {     
 
-            SqlConnection myConnection = new SqlConnection();
-            myConnection.ConnectionString = dbString.ConnectionString;
-            return myConnection;
+            return new SqlConnection(config.GetConnectionString("SQLConnection"));
 
         }
 
@@ -44,7 +38,7 @@ namespace sqlconnectionapp.DBService
                     productList.Add(product);
                 }
             }
-            conn.Close();  
+            conn.Close();
 
             return productList;
         }
