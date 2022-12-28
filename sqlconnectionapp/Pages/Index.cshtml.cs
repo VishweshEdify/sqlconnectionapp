@@ -19,7 +19,7 @@ namespace sqlconnectionapp.Pages
         public void OnGet()
         {
             isAlpha = connDB.IsAlpha().Result;
-            productList = connDB.getProduct().GetAwaiter().GetResult();
+            productList = connDB.getProduct();
 
         }
     }
