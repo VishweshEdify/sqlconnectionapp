@@ -4,7 +4,7 @@ namespace sqlconnectionapp.DBService
 {
     public interface IdbConnectionService
     {
-        Task<List<Product>> getProduct();
+        List<Product> getProduct();
         Task<bool> IsAlpha();
     }
 }
