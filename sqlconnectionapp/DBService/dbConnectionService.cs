@@ -18,7 +18,7 @@ namespace sqlconnectionapp.DBService
         private SqlConnection getConnection()
         {
 
-            return new SqlConnection(config["SQLConnection"]);
+            return new SqlConnection(config["SQLConnection1"]);
 
         }
 
